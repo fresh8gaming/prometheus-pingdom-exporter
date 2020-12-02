@@ -9,6 +9,7 @@ spec:
       - monitoring
   selector:
     matchLabels:
+      app: prometheus-pingdom-exporter
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/name: prometheus-pingdom-exporter
   endpoints:

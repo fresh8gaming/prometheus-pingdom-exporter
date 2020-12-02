@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-prometheus-pingdom-exporter
   labels:
+    app: prometheus-pingdom-exporter
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: prometheus-pingdom-exporter
 spec:
