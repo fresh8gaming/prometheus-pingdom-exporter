@@ -1,0 +1,16 @@
+{{- if .Values.monitor }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "prometheus-pingdom-exporter.fullname" . }}
+spec:
+  namespaceSelector:
+    matchNames:
+      - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "prometheus-pingdom-exporter.fullname" . }}
+  endpoints:
+    - port: metrics
+      interval: 1m
+{{- end -}}

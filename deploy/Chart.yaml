@@ -1,0 +1,25 @@
+apiVersion: v1
+name: prometheus-pingdom-exporter
+version: 0.0.1
+appVersion: 0.0.1
+home: https://github.com/fresh8gaming/prometheus-pingdom-exporter
+description: A Helm chart for Prometheus Pingdom Exporter
+keywords:
+- prometheus
+- pingdom
+sources:
+- https://github.com/fresh8gaming/prometheus-pingdom-exporter
+- https://github.com/giantswarm/prometheus-pingdom-exporter
+- https://github.com/camptocamp/prometheus-pingdom-exporter
+- https://github.com/prometheus-community/helm-charts
+maintainers:
+- name: domudall
+  email: dom.udall@fresh8gaming.com
+icon: https://raw.githubusercontent.com/cncf/artwork/master/prometheus/icon/color/prometheus-icon-color.svg
+annotations:
+  artifacthub.io/links: |
+    - name: Chart Source
+    - https://github.com/fresh8gaming/prometheus-pingdom-exporter
+  artifacthub.io/maintainers: |
+    - name: domudall
+      email: dom.udall@fresh8gaming.com
