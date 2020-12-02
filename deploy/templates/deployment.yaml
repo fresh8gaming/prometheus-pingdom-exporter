@@ -23,10 +23,6 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          volumes:
-            - name: {{ .Values.secret.name }}
-              secret:
-                secretName: {{ .Values.secret.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -34,11 +30,9 @@ spec:
               value: {{ .Values.waitSeconds }}
             - name: PORT
               value: {{ .Values.service.port }}
-            - name: API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: {{ .Values.secret.key }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.secret.name }}
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
