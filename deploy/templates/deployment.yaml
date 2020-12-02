@@ -16,8 +16,10 @@ spec:
       annotations:
         {{- toYaml .Values.pod.annotations | nindent 8 }}
       {{- end }}
+      {{- if .Values.selectorLabels }}
       labels:
         {{- toYaml ".Values.selectorLabels" | nindent 8 }}
+      {{- end }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

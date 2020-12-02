@@ -39,5 +39,3 @@ secret:
     # example: "false"
 
 waitSeconds: 10
-
-labels: {}

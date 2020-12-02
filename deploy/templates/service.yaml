@@ -2,8 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-prometheus-pingdom-exporter
+  {{- if .Values.labels }}
   labels:
     {{- toYaml ".Values.labels" | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,5 +13,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+  {{- if .Values.selectorLabels }}
   selector:
     {{- toYaml ".Values.selectorLabels" | nindent 4 }}
+  {{- end }}
