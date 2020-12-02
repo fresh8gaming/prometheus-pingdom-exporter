@@ -12,6 +12,6 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/name: prometheus-pingdom-exporter
   endpoints:
-    - port: metrics
+    - port: http
       interval: 1m
 {{- end -}}
