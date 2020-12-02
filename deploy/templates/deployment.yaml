@@ -27,9 +27,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: WAIT_SECONDS
-              value: {{ .Values.waitSeconds }}
+              value: {{ .Values.waitSeconds | quote }}
             - name: PORT
-              value: {{ .Values.service.port }}
+              value: {{ .Values.service.port | quote }}
           envFrom:
             - secretRef:
                 name: {{ .Values.secret.name }}
