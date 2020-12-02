@@ -1,14 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "prometheus-pingdom-exporter.fullname" . }}
+  name: {{ .Release.Name }}-prometheus-pingdom-exporter
   labels:
-    {{- include "prometheus-pingdom-exporter.labels" . | nindent 4 }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: prometheus-pingdom-exporter
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "prometheus-pingdom-exporter.selectorLabels" . | nindent 6 }}
+      app: prometheus-pingdom-exporter
   template:
     metadata:
       {{- if .Values.pod.annotations }}
@@ -16,7 +17,7 @@ spec:
         {{- toYaml .Values.pod.annotations | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "prometheus-pingdom-exporter.selectorLabels" . | nindent 8 }}
+        {{- toYaml ".Values.selectorLabels" | nindent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -30,8 +31,8 @@ spec:
             - name: API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "prometheus-pingdom-exporter.secret.name" . }}
-                  key: {{ include "prometheus-pingdom-exporter.secret.key" . }}
+                  name: {{ ".Values.secret.name" }}
+                  key: {{ ".Values.secret.key" }}
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false

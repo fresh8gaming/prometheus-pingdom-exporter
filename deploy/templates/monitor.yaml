@@ -2,14 +2,15 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "prometheus-pingdom-exporter.fullname" . }}
+  name: {{ .Release.Name }}-prometheus-pingdom-exporter
 spec:
   namespaceSelector:
     matchNames:
       - monitoring
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "prometheus-pingdom-exporter.fullname" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/name: prometheus-pingdom-exporter
   endpoints:
     - port: metrics
       interval: 1m
