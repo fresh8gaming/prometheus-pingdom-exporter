@@ -11,15 +11,9 @@ spec:
     matchLabels:
       app: prometheus-pingdom-exporter
   template:
-    # metadata:
-    #   {{- if .Values.pod.annotations }}
-    #   annotations:
-    #     {{- toYaml .Values.pod.annotations | nindent 8 }}
-    #   {{- end }}
-    #   {{- if .Values.labels }}
-    #   labels:
-    #     {{- toYaml ".Values.labels" | nindent 8 }}
-    #   {{- end }}
+    metadata:
+      labels:
+        app: prometheus-pingdom-exporter
     spec:
       containers:
         - name: {{ .Chart.Name }}
