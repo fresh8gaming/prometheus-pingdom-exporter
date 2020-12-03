@@ -15,5 +15,3 @@ spec:
       name: http
   selector:
     app: prometheus-pingdom-exporter
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: prometheus-pingdom-exporter
