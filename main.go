@@ -41,7 +41,7 @@ var (
 	pingdomCheckState = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Name: "pingdom_check_state",
 		Help: "The current state of the check (1: up, 0: down)",
-	}, []string{"hostname"})
+	}, []string{"hostname", "paused"})
 )
 
 func main() {
@@ -128,7 +128,7 @@ func main() {
 				}
 
 				pingdomCheckStatus.With(labels).Set(status)
-				pingdomCheckState.With(map[string]string{"hostname": check.Hostname}).Set(state)
+				pingdomCheckState.With(map[string]string{"hostname": check.Hostname, "paused": paused}).Set(state)
 				pingdomCheckResponseTime.With(labels).Set(float64(check.LastResponseTime))
 
 				checkMetrics[check.ID] = labels
