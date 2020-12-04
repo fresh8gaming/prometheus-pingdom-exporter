@@ -55,6 +55,7 @@ func main() {
 
 	prometheus.MustRegister(pingdomUp)
 	prometheus.MustRegister(pingdomCheckStatus)
+	prometheus.MustRegister(pingdomCheckState)
 	prometheus.MustRegister(pingdomCheckResponseTime)
 
 	client, err := pingdom.NewClientWithConfig(pingdom.ClientConfig{
