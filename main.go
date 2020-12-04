@@ -37,6 +37,11 @@ var (
 		Name: "pingdom_check_response_time",
 		Help: "The response time of last test in milliseconds",
 	}, []string{"id", "name", "hostname", "resolution", "paused", "tags"})
+
+	pingdomCheckState = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "pingdom_check_state",
+		Help: "The current state of the check (1: up, 0: down)",
+	}, []string{"hostname"})
 )
 
 func main() {
@@ -79,7 +84,8 @@ func main() {
 			for _, check := range checks {
 				id := strconv.Itoa(check.ID)
 
-				var status float64
+				var status, state float64
+				state = 0
 				switch check.Status {
 				case "unknown":
 					status = -2
@@ -87,6 +93,7 @@ func main() {
 					status = -1
 				case "up":
 					status = 0
+					state = 1
 				case "unconfirmed_down":
 					status = 1
 				case "down":
@@ -120,6 +127,7 @@ func main() {
 				}
 
 				pingdomCheckStatus.With(labels).Set(status)
+				pingdomCheckState.With(map[string]string{"hostname": check.Hostname}).Set(state)
 				pingdomCheckResponseTime.With(labels).Set(float64(check.LastResponseTime))
 
 				checkMetrics[check.ID] = labels
